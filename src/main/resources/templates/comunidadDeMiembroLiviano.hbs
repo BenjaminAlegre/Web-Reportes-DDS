@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comunidades del Miembro Liviano</title>
+    <link rel="shortcut icon" href="../img/logo1.png"type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/comunidadDeMiembro.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  </head>
+  <body>
+
+  <header class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/paginaPrincipal/miembro">
+          <img src="../../img/volver atras 64px.png" alt="logo" class="img-fluid with-border"/></a>
+      <a class="navbar-brand">
+          <img src="../../img/logo1.png" alt="logo" class="img-fluid with-border"/></a>
+      <a class="navbar-brand ms-auto">Monitoreo de Servicios públicos</a>
+  </header>
+
+  <main style="max-height: 100vh; overflow-y: auto;">
+      <section class="vh-100">
+          <div class="container py-3 h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                  <div class="col col-xl-10">
+                      <div class="card d-flex align-items-center mb-3 pb-1">
+                          <div class="titulo-principal">
+                              <h1>Comunidades del Miembro {{miembroId}}</h1>
+                          </div>
+                          <div class="comunidad-list">
+                              {{#if comunidades}}
+                                  {{#each comunidades}}
+                                      <div class="comunidad-box {{this.tipoMiembro}}">
+                                          <p class="nombre-comunidad">Nombre de la Comunidad: {{this.comunidad.nombre}}</p>
+                                          <p class="tipo-miembro">Tipo de Miembro: {{this.tipoMiembro}}</p>
+                                          <form action="/miembroLiviano/comunidades/{{this.comunidad.id}}/cambiarTipo" method="post">
+                                              <select name="nuevoTipoMiembro">
+                                                  <option disabled selected>Seleccione un estado</option>
+                                                  <option value="OBSERVADOR">Observador</option>
+                                                  <option value="AFECTADO">Afectado</option>
+                                              </select>
+                                              <button type="submit">Cambiar</button>
+                                          </form>
+                                      </div>
+                                  {{/each}}
+                              {{else}}
+                                  <div class="comunidad-box">
+                                      No hay comunidades para este miembro
+                                  </div>
+                              {{/if}}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+          </div>
+      </section>
+  </main>
+
+  <footer class="footer bg-dark text-light text-center">
+      <div class="container">
+          <p>Derechos de autor © DDS - GRUPO 6 - UTN - 2023</p>
+      </div>
+  </footer>
+
+    <!-- <script src="./index.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+  </body>
+
+</html>

@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: 'Urbanist';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: auto; /* Asegura que el body y el html crezcan con el contenido */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex; /* Hace que los elementos del body se alineen en columna */
+    flex-direction: column; /* Los alinea verticalmente en una columna */
+    background-color: #140152;
+    min-height: 100vh;
+    color: white;
+}
+
+header {
+
+    padding: 1rem 0;
+    background-color: #140152;
+    color: white;
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+    height: 80px;
+}
+
+header, main {
+    background-color: #140152;
+
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem;
+    overflow: auto;
+
+    padding-top: 60px; /* Igual a la altura del header para evitar la superposición */
+    margin-top: 0; /* Elimina el margen superior si la altura y el padding-top son suficientes */
+    min-height: calc(100vh - 60px);
+}
+.card {
+
+    width: 100%;
+    max-width: 800px; /* Ajusta este valor según el ancho deseado */
+    margin: 2rem auto; /* Añade un poco de margen arriba y abajo y centra horizontalmente */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.busqueda{
+    display: flex;
+    justify-content: center;
+    margin-left: 40vw;
+}
+
+#resultados {
+    background-color: #fff; /* Fondo blanco para la tabla */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera */
+    overflow-x: auto; /* Manejar tablas grandes en dispositivos pequeños */
+}
+
+#resultados table {
+    width: 100%; /* Ancho completo dentro del contenedor */
+    margin-bottom: 0; /* Quitar margen inferior */
+}
+.table thead th {
+    color: white;
+}
+
+/* Estilos adicionales para mejorar la apariencia */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05); /* Ajusta el color para que se vea bien en un fondo oscuro */
+}
+
+.buscador-container {
+    width: 100%; /* Ajustar al ancho del contenedor padre */
+    max-width: 600px; /* Un ancho máximo para que no se vea demasiado grande */
+    margin: 0 auto; /* Centrar el contenedor */
+}
+
+/* Si quieres centrar el formulario específicamente */
+#buscarIncidenteForm {
+    margin: 0 auto; /* Centrar el formulario */
+    width: auto; /* O un ancho específico si es necesario */
+}

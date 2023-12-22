@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    font-family: 'Urbanist';
+}
+
+main{
+    background-color: #140152;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; 
+    height: 100vh;
+   height:100vh;
+}
+
+select.form-select {
+    font-family: 'Urbanist';
+}
+
+.card{
+    border-radius: 1rem;
+}
+
+.sugerencia{
+    position: fixed;
+    font-size: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #a1c3e1; /* Fondo azul claro */
+    color: #333; /* Texto oscuro para una buena legibilidad */
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.btn-primary, .btn-secondary {
+    width: 120px; /* Ancho de los botones */
+    margin: 5px; /* Margen entre los botones */
+}
+
+.btn-container {
+    text-align: center;
+}

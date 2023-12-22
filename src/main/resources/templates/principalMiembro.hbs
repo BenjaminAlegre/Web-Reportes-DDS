@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pagina principal</title>
+    <link rel="shortcut icon" href="../img/logo1.png" type="image/x-icon">
+    <link rel="stylesheet" href="../stylesheets/paginaPrincipal.css">
+     <link rel="stylesheet" type="text/css" href="../../stylesheets/comunidadDeMiembroPesado.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+ <style>
+        .vista {
+            display: block;
+        }
+
+        .oculto {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="pantallaInicio" class="vista">
+    <!-- Encabezado (Header) -->
+    <header>
+        <div class="container-fluid">
+            <!-- BARRA NAVEGACIÓN -->
+            <div class="bg-light">
+                <nav class="navbar navbar-expand-xl navbar-light bg-light border-3 border-bottom">
+                    <div class="container-fluid">
+                        <a class="navbar-brand">
+                            <img src="../img/logo1.png"
+                            alt="logo" class="img-fluid with-border"/></a>
+                        <a class="navbar-brand mx-auto">Monitoreo de Servicios públicos</a>
+                        <button type="button"
+                            class="navbar-toggler"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#MenuNavegacion">
+                                <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+
+                    <div id="MenuNavegacion" class="collapse navbar-collapse">
+                        <ul class="navbar-nav ms-3">
+                            <li class="nav-item" style="background-color: firebrick">
+                                <button type="button" id="cerrarSesion" class="btn html-editor-align-center">
+                                    <a href="/logout" style="text-decoration: none; color: black;">Cerrar sesion</a>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/aperturaIncidente/">Abrir Incidente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/mostrarIncidentesUsuario">Cerrar incidente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/buscarIncidentesPorEstadoYComunidad">Incidentes por estado</a>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn html-editor-align-center" data-bs-toggle="modal" data-bs-target="#formularioModal">
+                                    Sugerencia de revisión
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/miembroLiviano/comunidades">Comunidades Liviano</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" onclick="cambiarVista()">Comunidades Pesado</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle custom-dropdown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-gear"></i>
+                                </a>
+                                <style>
+                                    .dropdown-menu.custom-dropdown {
+                                        background-color: #fff3cd;
+                                    }
+                                </style>
+                                <div class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Editar perfil</a>
+                                    <a class="dropdown-item" href="#">Ver estado de solicitudes a comunidades</a>
+                                    <a class="dropdown-item" href="#">Suscripciones a Entidades Prestadoras</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main style="max-height: 100vh; overflow-y: auto;">
+        <section class="vh-100">
+            <div class="container py-3">
+                <h1 class="texto">Monitoreo de Estado de Servicios de Transporte Público y de Establecimientos</h1>
+                <p>Este sitio web fue creado por estudiantes de Diseño de Sistemas con la finalidad de conocer los estados de servicios de distintas entidades</p>
+                
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-xl-9">
+                        <div class="card">
+                         
+                            <div class="row g-0">
+
+                                <div class="col-md col-lg d-flex align-items-center">
+                                    <div class="card-body p-4 p-lg-3">
+    
+                                        <div id="carousel " class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                            <div class="carousel-item active" data-bs-interval="5000">
+                                                <img src="../img/subte.jpg" class="d-block img-fluid" alt="Imagen 1">
+                                            </div>
+                                            <div class="carousel-item" data-bs-interval="5000">
+                                                <img src="../img/tren.jpg" class="d-block img-fluid" alt="Imagen 2">
+                                            </div>
+                                            <div class="carousel-item" data-bs-interval="5000">
+                                                <img src="../img/super.jpg" class="d-block img-fluid" alt="Imagen 3">
+                                            </div>
+                                            <div class="carousel-item" data-bs-interval="5000">
+                                                <img src="../img/escalera.jpg" class="img-fluid d-block" alt="Imagen 4">
+                                            </div>
+                                            <div class="carousel-item" data-bs-interval="5000">
+                                                <img src="../img/banio.jpg" class="d-block img-fluid" alt="Imagen 5">
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="formularioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="sugerenciaPesada" role="alert">
+                                                    <p style="color: #333333">Un incidente está cerca de donde estás ubicado. ¿Deseas revisar el estado?</p>
+                                                    <div class="btn-container">
+                                                        <button class="btn btn-warning btn-lg btn-block" type="submit">Revisar</button>
+                                                        <button class="btn btn-secondary btn-lg btn-block" type="submit">No</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Pie de página (Footer) -->
+    <footer class="footer bg-dark text-light text-center mt-8">
+        <div class="container">
+            <p>Derechos de autor © DDS - GRUPO 6 - UTN - 2023</p>
+        </div>
+    </footer>
+</div>
+
+
+
+
+
+<div id="comunidadPesado" class="oculto">
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" onclick="volverVistaComunidadPesado()">
+        <img src="../../img/volver atras 64px.png" alt="logo" class="img-fluid with-border"/></a>
+    <a class="navbar-brand">
+        <img src="../../img/logo1.png" alt="logo" class="img-fluid with-border"/></a>
+    <a class="navbar-brand ms-auto">Monitoreo de Servicios públicos</a>
+</header>
+
+<main>
+    <div class="titulo-principal">
+        <h1>Comunidades del Miembro {{miembroId}}</h1>
+    </div>
+    <div class="comunidad-list">
+        <div class="comunidad-cards">
+            {{#if comunidades}}
+                {{#each comunidades}}
+                    <div class="comunidad-card">
+                        <!-- Contenido de la tarjeta -->
+                        <p class="nombre-comunidad">{{this.comunidad.nombre}}</p>
+                        <div class="info-container">
+                            <p class="tipo-miembro">Tipo de Miembro: {{this.tipoMiembro}}</p>
+                            <select class="nuevo-tipo-miembro">
+                                <option disabled selected>Seleccione un estado</option>
+                                <option value="OBSERVADOR">Observador</option>
+                                <option value="AFECTADO">Afectado</option>
+                            </select>
+                        </div>
+                        <button class="cambiar-tipo-miembro" data-comunidad-id="{{this.comunidad.id}}">Cambiar</button>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="comunidad-card">
+                    No hay comunidades para este miembro
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</main>
+
+<footer class="footer bg-dark text-light text-center">
+    <div class="container">
+        <p>Derechos de autor © DDS - GRUPO 6 - UTN - 2023</p>
+    </div>
+</footer>
+
+<!-- <script src="./index.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const cambiarTipoBotones = document.querySelectorAll('.cambiar-tipo-miembro');
+
+        cambiarTipoBotones.forEach(btn => {
+            btn.addEventListener('click', function () {
+                console.log('Clic en el botón');
+                const comunidadId = this.getAttribute('data-comunidad-id');
+                const nuevoTipoMiembro = this.parentElement.querySelector('.nuevo-tipo-miembro').value;
+                const miembroId = '{{miembroId}}';
+
+                console.log('miembroId:', miembroId);
+                console.log('comunidadId:', comunidadId);
+                console.log('nuevoTipoMiembro:', nuevoTipoMiembro);
+
+                fetch(`/miembroPesado/comunidades/${comunidadId}/cambiarTipo`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ nuevoTipoMiembro }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const comunidad = this.parentElement;
+                        if (comunidad) {
+                            console.log('Elemento comunidad encontrado:', comunidad);
+
+                            const tipoMiembroElement = comunidad.querySelector('.info-container .tipo-miembro');
+
+                            if (tipoMiembroElement) {
+                                tipoMiembroElement.textContent = `Tipo de Miembro: ${nuevoTipoMiembro}`;
+                    console.log('Elemento tipo-miembro encontrado y actualizado.');
+                            } else {
+                                console.error('Error: tipo-miembro element not found.');
+                            }
+                        } else {
+                            console.error('Error: Parent element not found.');
+                        }
+                    })
+                    .catch(error => console.error('Erroras:', error));
+            });
+        });
+    });
+</script>
+
+</div>
+<script>
+    function cambiarVista() {
+            // Oculta la primera vista
+            document.getElementById("pantallaInicio").classList.add("oculto");
+
+            // Muestra la segunda vista
+            document.getElementById("comunidadPesado").classList.remove("oculto");
+        }
+
+            function volverVistaComunidadPesado() {
+                    // Oculta la primera vista
+                    document.getElementById("comunidadPesado").classList.add("oculto");
+
+                    // Muestra la segunda vista
+                    document.getElementById("pantallaInicio").classList.remove("oculto");
+                }
+
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+</body>
+</html>

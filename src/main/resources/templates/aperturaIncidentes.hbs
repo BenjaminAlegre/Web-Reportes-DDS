@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Apertura de Incidentes</title>
+    <link rel="shortcut icon" href="../img/logo1.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/estiloFormularios.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  </head>
+  <body>
+
+  <header class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/paginaPrincipal/miembro">
+          <img src="../img/volver atras 64px.png" alt="Volver atrás" class="img-fluid with-border"/></a>
+      <a class="navbar-brand">
+          <img src="../img/logo1.png"
+               alt="logo" class="img-fluid with-border"/></a>
+      <a class="navbar-brand ms-auto">Monitoreo de Servicios públicos</a>
+  </header>
+
+    <main style="max-height: 100vh; overflow-y: auto;">
+        <section class="vh-100">
+            <div class="container py-3 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-xl-10">
+                        <div class="card">
+
+                            <div class="row g-0">
+
+                                <div class="col-md col-lg d-flex align-items-center">
+                                    <div class="card-body p-4 p-lg-3 text-black">
+
+                                        <form action="/aperturaIncidente/registrarIncidente" method="POST">
+
+                                            <div class="d-flex align-items-center mb-3 pb-1">
+                                                <span class="h1 fw-bold mb-0">Apertura de Incidente</span>
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label">Tipo Entidad Afectada:</label>
+                                                <select class="form-select form-select-lg" id="tipoEntidad"
+                                                    aria-label="Default select example"  onchange="traerDatos(this,'entidades','http://localhost:3000/entidadesPorTipo?tipoEntidad=')" required>
+                                                    <option value="">Elija una opcion</option>
+                                                    <!--Listado de tipo de entidades-->
+                                                    <option value="SUBTE">Subte</option>
+                                                    <option value="FERROCARRIL">Ferrocarril</option>
+                                                    <option value="SUPERMERCADO">Supermercado</option>
+                                                    <option value="BANCO">Banco</option>
+                                                    <option value="CENTRO_COMUNAL">Centro Comunal</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label">Entidades:</label>
+                                                <select class="form-select form-select-lg" aria-label="Default select example"
+                                                        id="entidades" name="entidadId" style="display:none"
+                                                        onchange="traerDatos(this, 'establecimiento','http://localhost:3000/establecimientosPorEntidad?entidad=')"  required>
+                                                    <option value="">Elija una opcion</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label">Establecimiento:</label>
+                                                <select class="form-select form-select-lg"
+                                                        aria-label="Default select example"
+                                                        id="establecimiento"
+                                                        name="establecimientoId"
+                                                        style="display:none"
+                                                        onchange="traerDatos(this, 'servicio','http://localhost:3000/serviciosDeEstablecimiento?establecimiento=')"
+                                                        required>
+                                                    <option value="">Elija una opcion</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label">Servicio Afectado:</label>
+                                                <select class="form-select form-select-lg"
+                                                        aria-label="Default select example"
+                                                        id='servicio'
+                                                        name="servicioId"
+                                                        style="display:none"
+                                                        required>
+                                                    <option value="">Elija una opcion</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlTextarea1"
+                                                    class="form-label">Observaciones</label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" name="observaciones"
+                                                    rows="3"></textarea>
+                                            </div>
+
+                                            <div class="pt-1 mb-4">
+                                                <button class="btn btn-dark btn-lg btn-block"
+                                                    type="submit">Reportar</button>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+  <footer class="footer bg-dark text-light text-center">
+      <div class="container">
+          <p>Derechos de autor © DDS - GRUPO 6 - UTN - 2023</p>
+      </div>
+  </footer>
+
+    <!-- <script src="./index.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script>
+
+async function traerDatos(seleccionable, desplegable, ruta) {
+
+    var x = seleccionable.value;
+    var y= document.getElementById(desplegable);
+    y.options.length = 0;
+    y.options[0] =   new Option("Elija una opcion", "");
+    y.style.display = "block";
+    fetch(ruta+x)
+    .then(response => response.json())
+    .then(data => {
+        var x = document.getElementById(desplegable);
+        for (const valor of data.valores) {
+            x.options[x.options.length] = new Option(valor.nombre, valor.id);
+
+                     }})
+}
+async function traerDatos2(seleccionable, desplegable, ruta){
+    document.getElementById("lista").value=""
+    const x = seleccionable.value;
+    let lista = [];
+    var y= document.getElementById(desplegable);
+    y.style.display = "block";
+    y.options.length = 0;
+    y.options[0] =   new Option("", "");
+    fetch(ruta+x)
+      .then(response => response.json())
+      .then(data => {
+    var x = document.getElementById(desplegable);
+        for (const valor of data.valores) {
+          x.options[x.options.length] = new Option(valor.nombre+" "+valor.tipo,valor.id);
+                                   }
+      });
+        $('#select-miembros').select2({
+             data:lista});
+
+}
+
+</script>
+  </body>
+
+</html>

@@ -1,0 +1,8 @@
+# Excluye la carpeta .idea generada por IntelliJ IDEA
+.idea/
+
+# Excluye la carpeta target generada por Maven
+target/
+
+#lo que se sube con la carga masiva
+upload/

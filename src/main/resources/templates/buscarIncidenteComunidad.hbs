@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buscar Incidentes</title>
+    <link rel="shortcut icon" href="../img/logo1.png" type="image/x-icon">
+    <link rel="stylesheet" href="../stylesheets/estiloFormularios.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+          crossorigin="anonymous">
+</head>
+
+
+<body>
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="javascript:history.go(-1)">
+        <img src="../img/volver atras 64px.png" alt="logo" class="img-fluid with-border"/></a>
+    <a class="navbar-brand" href="">
+        <img src="../img/logo1.png" alt="logo" class="img-fluid with-border"/></a>
+    <a class="navbar-brand" href="#">Monitoreo de Servicios públicos</a>
+</header>
+
+<main style="max-height: 100vh; overflow-y: auto;">
+    <section class="vh-100">
+        <div class="container py-3 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card">
+
+                        <div class="row g-0">
+
+                            <div class="col-md col-lg d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-3 text-black">
+
+                                    <form action="/aperturaIncidente/registrarIncidente" method="POST">
+                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                            <span class="h1 fw-bold mb-0">Incidentes</span>
+                                        </div>
+                                        <div class="buscador-container">
+                                            <form id="buscarIncidenteForm">
+                                                <div class="form-outline mb-4">
+                                                    <label class="form-label">Seleccionar Comunidad</label>
+                                                    <select id="comunidad" class="form-select form-select-lg" aria-label="Default select example">
+                                                        <option disabled selected>Seleccione una comunidad</option>
+                                                        <!-- Las opciones de las comunidades se llenarán aquí con JavaScript -->
+                                                    </select>
+                                                    <label class="form-label">Buscar incidentes por estado...</label>
+                                                    <select id="estado" class="form-select form-select-lg" aria-label="Default select example">
+                                                        <option disabled selected>Seleccione un estado</option>
+                                                        <option value="ACTIVO">Activo</option>
+                                                        <option value="CERRADO">Cerrado</option>
+                                                    </select>
+                                                </div>
+                                                <button class="btn btn-dark btn-lg btn-block" type="button" id="buscarBtn">Buscar</button>
+                                            </form>
+                                        </div>
+                                        <div id="resultados" class="mt-4"> <!-- Resultados de la búsqueda serán mostrados aquí -->
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Estado</th>
+                                                    <th>Observaciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <!-- Las filas se llenarán aquí con JavaScript -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer bg-dark text-light text-center">
+    <div class="container">
+        <p>Derechos de autor © DDS - GRUPO 6 - UTN - 2023</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+<script>
+    document.getElementById('buscarBtn').addEventListener('click', function() {
+
+        var estado = document.getElementById('estado').value;
+        var comunidad = document.getElementById('comunidad').value;
+
+        if (comunidad === null) {
+            console.error('Error: Comunidad no seleccionada.');
+            return;
+        }
+
+        console.log('comunidad:', comunidad);
+
+        fetch(`/buscarIncidentesPorEstadoYComunidad/incidentesPorEstado?estado=${estado}&comunidad=${comunidad}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor: ' + response.status);
+                }
+                return response.json();
+            })
+
+            .then(data => {
+                var tbody = document.querySelector("#resultados table tbody");
+                tbody.innerHTML = ''; // Limpiar resultados anteriores
+                data.forEach(incidente => {
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${incidente.id}</td>
+                            <td>${incidente.estado}</td>
+                            <td>${incidente.observaciones}</td>
+
+                        </tr>`;
+                });
+            })
+
+            .catch(error => {
+                console.error('Error al realizar la solicitud:', error);
+
+                var resultados = document.getElementById('resultados');
+                resultados.innerHTML = `<div>Ocurrió un error: ${error.message}</div>`;
+            });
+    });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    fetch(`/obtenerComunidades/{{idUsuario}}`)
+        .then(response => response.json())
+        .then(data => {
+            var comunidadSelect = document.getElementById('comunidad');
+            data.forEach(comunidad => {
+                console.log('comunidad:', comunidad);
+
+                comunidadSelect.innerHTML += `<option value="${comunidad.id}">${comunidad.nombre}</option>`;
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener las comunidades:', error);
+        });
+});
+
+    function obtenerIdUsuarioDeUrl() {
+    var url = window.location.href;
+    var match = url.match(/\/buscarIncidentesPorEstado\/(\d+)/);
+    if (match && match[1]) {
+        return match[1];
+    }
+    return null;
+}
+
+</script>
+
+
+</body>
+</html>
